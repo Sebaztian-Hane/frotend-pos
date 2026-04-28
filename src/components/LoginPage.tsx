@@ -1,7 +1,12 @@
 import { useState } from 'react'
 import { useAuth } from '../context/AuthContext'
 
-export default function LoginPage() {
+interface Props {
+  onGoRegister: () => void
+  onGoRecover: () => void
+}
+
+export default function LoginPage({ onGoRegister, onGoRecover }: Props) {
   const { login } = useAuth()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -12,12 +17,10 @@ export default function LoginPage() {
     e.preventDefault()
     setError('')
     setLoading(true)
-
     try {
       await login({ email, password })
-      // AuthContext actualiza el estado, App.tsx redirige solo
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Error al iniciar sesión')
+      setError(err instanceof Error ? err.message : 'Credenciales incorrectas')
     } finally {
       setLoading(false)
     }
@@ -62,6 +65,12 @@ export default function LoginPage() {
             {loading ? 'Entrando...' : 'Entrar'}
           </button>
         </form>
+        <div className="auth-links">
+          <span>¿No tienes cuenta?</span>
+          <button className="link-btn" onClick={onGoRegister}>Registrarse</button>
+          <span className="auth-divider">·</span>
+          <button className="link-btn" onClick={onGoRecover}>¿Olvidaste tu contraseña?</button>
+        </div>
       </div>
     </div>
   )
