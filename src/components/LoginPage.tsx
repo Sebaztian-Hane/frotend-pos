@@ -1,12 +1,7 @@
 import { useState } from 'react'
 import { useAuth } from '../context/AuthContext'
 
-interface Props {
-  onGoRegister: () => void
-  onGoRecover: () => void
-}
-
-export default function LoginPage({ onGoRegister, onGoRecover }: Props) {
+export default function LoginPage() {
   const { login } = useAuth()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -65,12 +60,6 @@ export default function LoginPage({ onGoRegister, onGoRecover }: Props) {
             {loading ? 'Entrando...' : 'Entrar'}
           </button>
         </form>
-        <div className="auth-links">
-          <span>¿No tienes cuenta?</span>
-          <button className="link-btn" onClick={onGoRegister}>Registrarse</button>
-          <span className="auth-divider">·</span>
-          <button className="link-btn" onClick={onGoRecover}>¿Olvidaste tu contraseña?</button>
-        </div>
       </div>
     </div>
   )

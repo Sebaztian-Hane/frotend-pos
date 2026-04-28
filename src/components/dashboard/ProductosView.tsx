@@ -196,7 +196,7 @@ export default function ProductosView() {
 
             <div className="pv-row2">
               <div>
-            <p className="pv-field-lbl">SKU</p>
+            <p className="pv-field-lbl">Codigo de serie</p>
             <input className="pv-input" placeholder="SKU"
               value={form.sku ?? ''} onChange={e => set('sku', e.target.value)} />
               </div>
