@@ -1,8 +1,8 @@
-import { useState, useRef, useEffect } from 'react'
+import { useState, useRef, useEffect, type ChangeEvent } from 'react'
 import type { ReactElement } from 'react'
 import { useProducts } from '../../hooks/useProducts'
 import { useSales } from '../../hooks/useSales'
-import { PAYMENT_METHODS } from '../../data/paymentMethods'
+import { PAYMENT_METHODS, type PaymentMethodId } from '../../data/paymentMethods'
 import type { Product } from '../../types'
 
 // ── Íconos por categoría ──────────────────────────────────────────────────────
@@ -96,7 +96,7 @@ interface PayModalProps {
 }
 
 function PayModal({ total, onConfirm, onClose, loading }: PayModalProps) {
-  const [selectedMethod, setSelectedMethod] = useState(PAYMENT_METHODS[0].id)
+  const [selectedMethod, setSelectedMethod] = useState<PaymentMethodId>(PAYMENT_METHODS[0].id)
 
   return (
     <div className="modal-overlay" onClick={onClose}>
@@ -115,7 +115,7 @@ function PayModal({ total, onConfirm, onClose, loading }: PayModalProps) {
           <select
             className="pv-input pv-select"
             value={selectedMethod}
-            onChange={e => setSelectedMethod(Number(e.target.value))}
+            onChange={(e: ChangeEvent<HTMLSelectElement>) => setSelectedMethod(Number(e.target.value) as PaymentMethodId)}
           >
             {PAYMENT_METHODS.map(m => (
               <option key={m.id} value={m.id}>{m.name}</option>
